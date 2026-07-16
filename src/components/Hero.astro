@@ -1,0 +1,95 @@
+---
+---
+
+<section class="hero" id="top">
+  <canvas class="hero-canvas" id="hero-canvas" aria-hidden="true"></canvas>
+  <div class="hero-veil" aria-hidden="true"></div>
+
+  <div class="wrap hero-inner">
+    <p class="eyebrow hero-eyebrow" data-hero="1">Cryptobush Capital</p>
+
+    <h1 class="display hero-title">
+      <span data-hero="2">On the way</span>
+      <span data-hero="3">to <span class="grad-text">perfection</span></span>
+    </h1>
+
+    <p class="lede hero-sub" data-hero="4">
+      A quantitative trading firm engineering edge in digital-asset markets —
+      across every venue, measured in milliseconds.
+    </p>
+
+    <div class="hero-cta" data-hero="5">
+      <a href="#contact" class="btn btn-gold">Allocate capital</a>
+      <a href="#approach" class="btn btn-ghost">How we trade</a>
+    </div>
+  </div>
+
+  <a href="#approach" class="scroll-cue" aria-label="Scroll">
+    <span class="scroll-dot"></span>
+  </a>
+</section>
+
+<script>
+  import '../scripts/hero-canvas.ts';
+</script>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .hero-canvas {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    z-index: -2;
+    /* CSS fallback if WebGL never boots */
+    background:
+      radial-gradient(60% 50% at 70% 30%, rgba(124,58,237,0.55), transparent 70%),
+      radial-gradient(50% 45% at 25% 70%, rgba(245,197,24,0.14), transparent 70%),
+      #0a0713;
+  }
+  .hero-veil {
+    position: absolute; inset: 0; z-index: -1;
+    background:
+      linear-gradient(180deg, rgba(10,7,19,0.35) 0%, rgba(10,7,19,0) 30%, rgba(10,7,19,0.55) 78%, var(--bg) 100%),
+      radial-gradient(120% 90% at 50% 120%, rgba(10,7,19,0.9), transparent 60%);
+    pointer-events: none;
+  }
+  .hero-inner { position: relative; }
+
+  .hero-eyebrow { margin-bottom: 1.4rem; }
+
+  .hero-title {
+    font-size: clamp(3.1rem, 9vw, 8rem);
+    margin-bottom: 1.8rem;
+  }
+  .hero-title span { display: block; }
+
+  .hero-sub { margin-bottom: 2.6rem; }
+
+  .hero-cta { display: flex; flex-wrap: wrap; gap: 1rem; }
+
+  /* intro animation targets (JS sets .gsap-ready; otherwise visible) */
+  :global(html.gsap-ready) [data-hero] { opacity: 0; transform: translateY(34px); }
+
+  .scroll-cue {
+    position: absolute; left: 50%; bottom: 34px; transform: translateX(-50%);
+    width: 26px; height: 42px; border: 1.5px solid var(--panel-brd);
+    border-radius: 20px; display: flex; justify-content: center; padding-top: 8px;
+    z-index: 2;
+  }
+  .scroll-dot {
+    width: 4px; height: 8px; border-radius: 4px; background: var(--gold);
+    animation: cue 1.8s var(--ease) infinite;
+  }
+  @keyframes cue {
+    0% { transform: translateY(0); opacity: 0; }
+    30% { opacity: 1; }
+    70% { transform: translateY(12px); opacity: 0; }
+    100% { opacity: 0; }
+  }
+</style>

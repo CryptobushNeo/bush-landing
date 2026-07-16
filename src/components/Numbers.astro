@@ -1,0 +1,51 @@
+---
+const stats = [
+  { v: '< 2', u: 'ms', l: 'Median latency to core matching engines' },
+  { v: '24/7', u: '', l: 'Continuous, unattended execution' },
+  { v: '47', u: '', l: 'Engineered microstructure features per model' },
+  { v: '4+', u: '', l: 'Centralized and decentralized venues integrated' },
+];
+---
+
+<section class="section-pad" id="numbers">
+  <div class="wrap">
+    <p class="eyebrow n-eyebrow" data-reveal>By design</p>
+    <div class="n-grid">
+      {stats.map((s, i) => (
+        <div class="n-cell" data-reveal data-reveal-delay={0.06 * i}>
+          <div class="n-v">{s.v}<span class="n-u">{s.u}</span></div>
+          <p class="n-l">{s.l}</p>
+        </div>
+      ))}
+    </div>
+    <p class="n-note" data-reveal>
+      Capability metrics, not performance figures. Track record shared under NDA with
+      qualified counterparties.
+    </p>
+  </div>
+</section>
+
+<style>
+  .n-eyebrow { margin-bottom: 2.5rem; }
+  .n-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: clamp(1.5rem, 3vw, 3rem);
+    border-top: 1px solid var(--panel-brd);
+    padding-top: clamp(2rem, 4vw, 3.5rem);
+  }
+  .n-v {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: clamp(2.8rem, 7vw, 5.2rem); line-height: 1;
+    letter-spacing: -0.03em;
+    background: linear-gradient(180deg, #fff, var(--violet-300));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .n-u { font-size: 0.42em; color: var(--gold); -webkit-text-fill-color: var(--gold); margin-left: 0.15em; }
+  .n-l { color: var(--muted); font-size: 0.98rem; margin-top: 1rem; max-width: 24ch; }
+  .n-note {
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+    color: var(--muted-2); font-size: 0.9rem;
+  }
+
+  @media (max-width: 780px) { .n-grid { grid-template-columns: repeat(2, 1fr); row-gap: 2.5rem; } }
+</style>

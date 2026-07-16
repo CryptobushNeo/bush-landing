@@ -1,0 +1,55 @@
+---
+const pillars = [
+  { t: 'Engineers first', d: 'We are a team of quants, traders, and systems engineers who have spent their careers where microseconds and models meet.' },
+  { t: 'Research-driven', d: 'Every strategy begins as a question and survives only if the evidence holds up out-of-sample. Conviction is earned, never assumed.' },
+  { t: 'Aligned by design', d: 'We trade our own capital alongside our partners. Our incentive is a single number: risk-adjusted return, compounded.' },
+];
+---
+
+<section class="section-pad grid-lines" id="firm">
+  <div class="wrap firm">
+    <div class="firm-lead">
+      <p class="eyebrow" data-reveal>The firm</p>
+      <h2 class="display firm-title" data-reveal data-reveal-delay="0.05">
+        A small team with<br />
+        <span class="grad-text">years of scars and signal.</span>
+      </h2>
+      <p class="lede" data-reveal data-reveal-delay="0.1">
+        Cryptobush is deliberately lean. Behind the name is a group that has built
+        low-latency trading systems, calibrated models on noisy markets, and learned — the
+        hard way — that edge is a practice, not a possession.
+      </p>
+    </div>
+
+    <div class="firm-pillars">
+      {pillars.map((p, i) => (
+        <div class="firm-pill" data-reveal data-reveal-delay={0.05 * i}>
+          <span class="firm-dot" aria-hidden="true"></span>
+          <h3 class="firm-pt">{p.t}</h3>
+          <p class="firm-pd">{p.d}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .firm { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2.5rem, 6vw, 6rem); align-items: start; }
+  .firm-lead { position: sticky; top: 110px; }
+  .firm-title { font-size: clamp(2rem, 4.6vw, 3.6rem); margin: 1rem 0 1.6rem; }
+
+  .firm-pillars { display: flex; flex-direction: column; gap: 2.4rem; }
+  .firm-pill { position: relative; padding-left: 1.8rem; }
+  .firm-dot {
+    position: absolute; left: 0; top: 0.55em;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--gold); box-shadow: 0 0 16px -2px var(--gold-glow);
+  }
+  .firm-pt { font-family: var(--font-display); font-weight: 600; font-size: 1.4rem; }
+  .firm-pd { color: var(--muted); margin-top: 0.5rem; }
+
+  @media (max-width: 820px) {
+    .firm { grid-template-columns: 1fr; }
+    .firm-lead { position: static; }
+  }
+</style>

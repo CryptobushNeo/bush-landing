@@ -1,0 +1,91 @@
+---
+const cards = [
+  {
+    k: 'Milliseconds',
+    t: 'Low-latency infrastructure',
+    d: 'Colocated close to matching engines, our systems observe, decide, and act in the time it takes a market to blink. Speed is table stakes; we treat it as one.',
+  },
+  {
+    k: 'Machine learning',
+    t: 'Signals that learn',
+    d: 'Dozens of engineered market-microstructure features feed models that adapt to regime. Statistical and ML predictors work side by side, continuously re-calibrated.',
+  },
+  {
+    k: 'Everywhere',
+    t: 'CEX and DEX, one engine',
+    d: 'A unified execution core trades centralized order books and on-chain venues alike — normalizing every market behind a single, venue-agnostic abstraction.',
+  },
+  {
+    k: 'Systematic',
+    t: 'No discretion, all process',
+    d: 'Every position is the output of a rule, logged and reviewable. Research, backtest, and live execution run the same code path — so what we test is what we trade.',
+  },
+];
+---
+
+<section class="section-pad grid-lines" id="edge">
+  <div class="wrap">
+    <div class="edge-head">
+      <p class="eyebrow" data-reveal>What we do</p>
+      <h2 class="display edge-title" data-reveal data-reveal-delay="0.05">
+        We take capital under management and trade it<br />
+        systematically, <span class="grad-text">around the clock.</span>
+      </h2>
+      <p class="lede" data-reveal data-reveal-delay="0.1">
+        The platform is universal; the strategy is configuration. That separation lets us
+        move edge across venues and markets as opportunity migrates — the same discipline,
+        applied wherever it pays.
+      </p>
+    </div>
+
+    <div class="edge-grid">
+      {cards.map((c, i) => (
+        <article class="edge-card" data-reveal data-reveal-delay={0.05 * i}>
+          <span class="edge-k">{c.k}</span>
+          <h3 class="edge-ct">{c.t}</h3>
+          <p class="edge-cd">{c.d}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .edge-head { max-width: 900px; margin-bottom: clamp(3rem, 6vw, 5rem); }
+  .edge-title { font-size: clamp(1.9rem, 4.6vw, 3.5rem); margin: 1rem 0 1.6rem; }
+
+  .edge-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: clamp(1rem, 2vw, 1.6rem);
+  }
+  .edge-card {
+    position: relative;
+    padding: clamp(1.6rem, 3vw, 2.6rem);
+    border-radius: 18px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01));
+    border: 1px solid var(--panel-brd);
+    overflow: hidden;
+    transition: transform 0.4s var(--ease), border-color 0.4s var(--ease);
+  }
+  .edge-card::after {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(120% 100% at 0% 0%, rgba(168,133,250,0.14), transparent 55%);
+    opacity: 0; transition: opacity 0.4s var(--ease);
+  }
+  .edge-card:hover { transform: translateY(-4px); border-color: rgba(168,133,250,0.32); }
+  .edge-card:hover::after { opacity: 1; }
+
+  .edge-k {
+    font-family: var(--font-display); font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold);
+  }
+  .edge-ct {
+    font-family: var(--font-display); font-size: 1.5rem; font-weight: 600;
+    margin: 0.9rem 0 0.7rem; letter-spacing: -0.01em;
+  }
+  .edge-cd { color: var(--muted); font-size: 1rem; position: relative; z-index: 1; }
+
+  @media (max-width: 720px) {
+    .edge-grid { grid-template-columns: 1fr; }
+  }
+</style>

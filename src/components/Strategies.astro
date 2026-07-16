@@ -1,0 +1,98 @@
+---
+const rows = [
+  {
+    n: '01',
+    t: 'Market making',
+    d: 'Continuously quoting two-sided liquidity, earning the spread while managing inventory in real time across fast-moving books.',
+  },
+  {
+    n: '02',
+    t: 'Statistical arbitrage',
+    d: 'Exploiting transient dislocations between related instruments and venues — mean-reverting the noise the crowd leaves behind.',
+  },
+  {
+    n: '03',
+    t: 'Funding & basis',
+    d: 'Harvesting structural premia between perpetuals, futures, and spot — carry that pays for patience, sized to the regime.',
+  },
+  {
+    n: '04',
+    t: 'Liquidation dynamics',
+    d: 'Reading forced-flow cascades as they unfold and positioning for the exhaustion and reversion that reliably follow.',
+  },
+  {
+    n: '05',
+    t: 'Cross-venue execution',
+    d: 'Sourcing signal where it is strongest and executing where books are deepest — decoupling alpha from the cost of trading it.',
+  },
+];
+---
+
+<section class="section-pad" id="strategies">
+  <div class="wrap">
+    <div class="s-head">
+      <p class="eyebrow" data-reveal>How we trade</p>
+      <h2 class="display s-title" data-reveal data-reveal-delay="0.05">
+        A portfolio of <span class="grad-text">independent edges.</span>
+      </h2>
+      <p class="lede" data-reveal data-reveal-delay="0.1">
+        No single bet carries the firm. We run a diversified book of uncorrelated
+        strategy families — each researched, risk-bounded, and switched on only where the
+        data earns it.
+      </p>
+    </div>
+
+    <ul class="s-list">
+      {rows.map((r, i) => (
+        <li class="s-row" data-reveal data-reveal-delay={0.04 * i}>
+          <span class="s-n">{r.n}</span>
+          <div class="s-body">
+            <h3 class="s-rt">{r.t}</h3>
+            <p class="s-rd">{r.d}</p>
+          </div>
+          <span class="s-arrow" aria-hidden="true">↗</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .s-head { max-width: 780px; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+  .s-title { font-size: clamp(2rem, 5vw, 3.8rem); margin: 1rem 0 1.4rem; }
+
+  .s-list { list-style: none; }
+  .s-row {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: clamp(1rem, 3vw, 2.6rem);
+    align-items: center;
+    padding: clamp(1.4rem, 3vw, 2.2rem) 0;
+    border-top: 1px solid var(--panel-brd);
+    transition: padding-left 0.4s var(--ease);
+  }
+  .s-list .s-row:last-child { border-bottom: 1px solid var(--panel-brd); }
+  .s-row:hover { padding-left: clamp(0.4rem, 1.5vw, 1.2rem); }
+
+  .s-n {
+    font-family: var(--font-display); font-size: 1rem; font-weight: 600;
+    color: var(--gold); letter-spacing: 0.1em; padding-top: 0.3em;
+  }
+  .s-rt {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: clamp(1.35rem, 3vw, 2.1rem); letter-spacing: -0.01em;
+    transition: color 0.3s;
+  }
+  .s-rd { color: var(--muted); margin-top: 0.4rem; max-width: 62ch; }
+  .s-arrow {
+    font-size: 1.6rem; color: var(--muted-2);
+    transition: transform 0.4s var(--ease), color 0.3s;
+  }
+  .s-row:hover .s-rt { color: var(--violet-300); }
+  .s-row:hover .s-arrow { color: var(--gold); transform: translate(4px, -4px); }
+
+  @media (max-width: 640px) {
+    .s-arrow { display: none; }
+    .s-row { grid-template-columns: auto 1fr; }
+  }
+</style>

@@ -1,0 +1,53 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="wrap f-inner">
+    <div class="f-brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="f-name">crypto<span class="gold">bush</span></span>
+      <p class="f-slogan">On the way to perfection.</p>
+    </div>
+
+    <nav class="f-links" aria-label="Footer">
+      <a href="#approach">Approach</a>
+      <a href="#edge">Edge</a>
+      <a href="#strategies">Strategies</a>
+      <a href="#firm">Firm</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+
+  <div class="wrap f-bottom">
+    <p>© {year} Cryptobush. All rights reserved.</p>
+    <p class="f-disc">
+      For informational purposes only. Nothing herein is an offer to sell or a solicitation
+      to buy any security or to provide investment advice. Trading digital assets involves risk.
+    </p>
+  </div>
+</footer>
+
+<style>
+  .footer { border-top: 1px solid var(--panel-brd); padding-top: clamp(3rem, 6vw, 5rem); padding-bottom: 2.5rem; }
+  .f-inner { display: flex; justify-content: space-between; gap: 2rem; flex-wrap: wrap; margin-bottom: 3rem; }
+  .f-brand .brand-mark {
+    display: inline-block; width: 24px; height: 24px; border-radius: 7px; vertical-align: middle;
+    background:
+      radial-gradient(circle at 30% 30%, var(--gold-soft), transparent 55%),
+      linear-gradient(135deg, var(--violet-400), var(--violet-700));
+  }
+  .f-name { font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; margin-left: 0.55em; vertical-align: middle; }
+  .f-slogan { color: var(--muted-2); font-size: 0.9rem; margin-top: 0.9rem; }
+
+  .f-links { display: flex; flex-wrap: wrap; gap: 1.6rem; align-items: flex-start; }
+  .f-links a { font-family: var(--font-display); font-size: 0.9rem; color: var(--muted); transition: color 0.25s; }
+  .f-links a:hover { color: var(--gold); }
+
+  .f-bottom {
+    display: flex; justify-content: space-between; gap: 2rem; flex-wrap: wrap;
+    border-top: 1px solid var(--panel-brd); padding-top: 1.6rem;
+    color: var(--muted-2); font-size: 0.78rem;
+  }
+  .f-disc { max-width: 60ch; }
+</style>
