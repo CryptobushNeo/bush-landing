@@ -1,6 +1,9 @@
 ---
-// Replace FORM_ID with your Formspree form id (formspree.io) — no backend needed.
-const FORM_ENDPOINT = 'https://formspree.io/f/FORM_ID';
+// FormSubmit (formsubmit.co) — no account. First submission triggers a one-time
+// activation email to FORM_EMAIL; click the link once and the form is live.
+const FORM_EMAIL = 'partners@bush.finance';
+const FORM_ACTION = `https://formsubmit.co/${FORM_EMAIL}`;
+const FORM_AJAX = `https://formsubmit.co/ajax/${FORM_EMAIL}`;
 ---
 
 <section class="section-pad" id="contact">
@@ -19,7 +22,14 @@ const FORM_ENDPOINT = 'https://formspree.io/f/FORM_ID';
       </p>
     </div>
 
-    <form class="c-form" action={FORM_ENDPOINT} method="POST" data-reveal data-reveal-delay="0.1">
+    <form class="c-form" id="inquiry-form" action={FORM_ACTION} method="POST" data-ajax={FORM_AJAX} data-reveal data-reveal-delay="0.1">
+      <!-- FormSubmit controls -->
+      <input type="hidden" name="_subject" value="New Cryptobush inquiry" />
+      <input type="hidden" name="_template" value="table" />
+      <input type="hidden" name="_captcha" value="false" />
+      <!-- honeypot: bots fill this, humans never see it -->
+      <input type="text" name="_honey" tabindex="-1" autocomplete="off" class="c-honey" aria-hidden="true" />
+
       <div class="c-field">
         <label for="name">Name</label>
         <input id="name" name="name" type="text" required autocomplete="name" placeholder="Jane Street" />
@@ -37,10 +47,55 @@ const FORM_ENDPOINT = 'https://formspree.io/f/FORM_ID';
         <textarea id="msg" name="message" rows="4" required placeholder="A little about your mandate…"></textarea>
       </div>
       <button type="submit" class="btn btn-gold c-submit">Send inquiry</button>
+      <p class="c-status" id="form-status" role="status" aria-live="polite" hidden></p>
       <p class="c-fine">By submitting you agree to be contacted about Cryptobush. We never share your details.</p>
     </form>
   </div>
 </section>
+
+<script>
+  const form = document.getElementById('inquiry-form') as HTMLFormElement | null;
+  const status = document.getElementById('form-status');
+  if (form && status) {
+    const btn = form.querySelector('.c-submit') as HTMLButtonElement;
+    const ajax = form.dataset.ajax!;
+    const honey = form.querySelector<HTMLInputElement>('[name="_honey"]');
+
+    const show = (msg: string, ok: boolean) => {
+      status.hidden = false;
+      status.textContent = msg;
+      status.classList.toggle('is-ok', ok);
+      status.classList.toggle('is-err', !ok);
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (honey && honey.value) return; // bot
+      btn.disabled = true;
+      const label = btn.textContent;
+      btn.textContent = 'Sending…';
+      try {
+        const res = await fetch(ajax, {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: new FormData(form),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data.success !== 'false') {
+          form.reset();
+          show('Thank you — your inquiry has been received. We’ll be in touch.', true);
+        } else {
+          show(data.message || 'Something went wrong. Please email partners@bush.finance directly.', false);
+        }
+      } catch {
+        show('Network error. Please email partners@bush.finance directly.', false);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = label;
+      }
+    });
+  }
+</script>
 
 <style>
   .contact { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2.5rem, 6vw, 6rem); align-items: start; }
@@ -73,6 +128,13 @@ const FORM_ENDPOINT = 'https://formspree.io/f/FORM_ID';
     box-shadow: 0 0 0 3px rgba(124,58,237,0.18);
   }
   .c-submit { width: 100%; justify-content: center; margin-top: 0.4rem; }
+  .c-honey { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+  .c-status {
+    margin-top: 0.9rem; text-align: center; font-size: 0.92rem;
+    padding: 0.7em 1em; border-radius: 12px;
+  }
+  .c-status.is-ok  { color: #bff5cf; background: rgba(60,200,120,0.10); border: 1px solid rgba(60,200,120,0.3); }
+  .c-status.is-err { color: #ffd0d0; background: rgba(240,80,80,0.10); border: 1px solid rgba(240,80,80,0.3); }
   .c-fine { color: var(--muted-2); font-size: 0.78rem; margin-top: 0.9rem; text-align: center; }
 
   @media (max-width: 820px) { .contact { grid-template-columns: 1fr; } }
