@@ -73,10 +73,11 @@
   .hero-eyebrow { margin-bottom: 1.4rem; }
 
   .hero-title {
-    font-size: clamp(3.1rem, 9vw, 8rem);
+    font-size: clamp(2.7rem, 8.5vw, 8rem);
     margin-bottom: 1.8rem;
   }
-  .hero-title span { display: block; }
+  .hero-title > span { display: block; }        /* only the two lines break */
+  .hero-title .grad-text { display: inline; }    /* keep "perfection" inline */
 
   .hero-sub { margin-bottom: 2.6rem; }
 
