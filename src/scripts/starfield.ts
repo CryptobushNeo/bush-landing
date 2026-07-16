@@ -33,7 +33,7 @@ function boot() {
     cx = w / 2;
     cy = h / 2;
     k = Math.min(w, h) * 0.5;
-    const count = Math.min(760, Math.max(220, Math.floor((w * h) / 2400)));
+    const count = Math.min(1600, Math.max(500, Math.floor((w * h) / 1100)));
     if (stars.length !== count) {
       stars = Array.from({ length: count }, () => mk(rnd(0.05, 1)));
     }
