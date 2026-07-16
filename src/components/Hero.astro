@@ -3,6 +3,7 @@
 
 <section class="hero" id="top">
   <canvas class="hero-canvas" id="hero-canvas" aria-hidden="true"></canvas>
+  <canvas class="hero-stars" id="hero-stars" aria-hidden="true"></canvas>
   <div class="hero-veil" aria-hidden="true"></div>
 
   <div class="wrap hero-inner">
@@ -10,7 +11,7 @@
 
     <h1 class="display hero-title">
       <span data-hero="2">On the way</span>
-      <span data-hero="3">to <span class="grad-text">perfection</span></span>
+      <span data-hero="3" class="nowrap">to&nbsp;<span class="grad-text">perfection</span></span>
     </h1>
 
     <p class="lede hero-sub" data-hero="4">
@@ -31,6 +32,7 @@
 
 <script>
   import '../scripts/hero-canvas.ts';
+  import '../scripts/starfield.ts';
 </script>
 
 <style>
@@ -45,13 +47,20 @@
   .hero-canvas {
     position: absolute; inset: 0;
     width: 100%; height: 100%;
-    z-index: -2;
+    z-index: -3;
+    opacity: 0.4;                 /* clouds = faint overlay only */
     /* CSS fallback if WebGL never boots */
     background:
-      radial-gradient(60% 50% at 70% 30%, rgba(124,58,237,0.55), transparent 70%),
-      radial-gradient(50% 45% at 25% 70%, rgba(245,197,24,0.14), transparent 70%),
+      radial-gradient(60% 50% at 70% 30%, rgba(90,42,170,0.4), transparent 72%),
+      radial-gradient(50% 45% at 25% 70%, rgba(120,70,190,0.22), transparent 72%),
       #0a0713;
   }
+  .hero-stars {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    z-index: -2;                  /* white starfield, flying forward */
+  }
+  .nowrap { white-space: nowrap; }
   .hero-veil {
     position: absolute; inset: 0; z-index: -1;
     background:

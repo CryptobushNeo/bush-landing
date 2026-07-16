@@ -55,23 +55,23 @@ void main(){
   float field = fbm(p*1.5 + q*1.3 + vec2(0.0, t*0.6));
   field = 0.5 + 0.5*field;
 
-  vec3 bg    = vec3(0.039, 0.027, 0.075);
-  vec3 vio   = vec3(0.30, 0.16, 0.62);
-  vec3 vioHi = vec3(0.66, 0.33, 0.97);
+  vec3 bg    = vec3(0.035, 0.026, 0.062);
+  vec3 vio   = vec3(0.15, 0.09, 0.30);   // muted violet
+  vec3 vioHi = vec3(0.30, 0.17, 0.48);   // dimmer highlight
 
   vec3 col = mix(bg, vio, smoothstep(0.35, 0.78, field));
-  col = mix(col, vioHi, smoothstep(0.64, 0.98, field)*0.85);
+  col = mix(col, vioHi, smoothstep(0.64, 0.98, field)*0.8);
 
-  // moving light origin (upper-right) → volumetric gold rays
+  // moving light origin (upper-right) → soft volumetric rays
   vec2 lp  = vec2(0.55, 0.28);
   vec2 dir = p - lp;
   float ang = atan(dir.y, dir.x);
   float rays = fbm(vec2(ang*3.0, length(dir)*2.0 - t*2.0));
   rays = pow(0.5 + 0.5*rays, 3.0);
   float falloff = smoothstep(1.25, 0.0, length(dir));
-  vec3 gold = vec3(0.96, 0.77, 0.09);
-  col += gold  * rays * falloff * 0.24;
-  col += vioHi * falloff * 0.10;
+  vec3 gold = vec3(0.85, 0.68, 0.12);
+  col += gold  * rays * falloff * 0.10;
+  col += vioHi * falloff * 0.06;
 
   // grain + vignette
   float gr = fract(sin(dot(gl_FragCoord.xy, vec2(12.9898,78.233)))*43758.5453);
